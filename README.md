@@ -14,7 +14,7 @@
 ## 安装方式
 
 ```bash
-pip install occrq-juejin-sdk
+pip install occrq-juejin-python-sdk
 ```
 
 ## 快速开始
@@ -55,7 +55,7 @@ user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 # 获取用户信息
 import os
 from juejin.user import UserClient
-# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
+# 初始化客户端(预先从浏览器获取登录信息) 使用签到功能时需要设置ms_token/a_bogus，默认为空
 cookies = os.environ["JUEJIN_COOKIE"] 
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
