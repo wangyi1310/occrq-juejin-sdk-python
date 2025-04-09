@@ -21,18 +21,18 @@ pip install occrq-juejin-sdk
 
 ### 浏览器获取cookie，a_bogus，ms_token
 登录后，进入掘金用户签到页面：
-https://juejin.cn/user/center/signin?from=sign_in_menu_bar
-<img width="1528" alt="Clipboard_Screenshot_1744196997" src="https://github.com/user-attachments/assets/d99a3ffd-6059-49bb-b838-1096535206bb" />
+<img width="1565" alt="Clipboard_Screenshot_1744198424" src="https://github.com/user-attachments/assets/8be2f82f-a83e-47e1-8437-ecc3961d9f0e" />
+
 
 F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_in_rulers接口：
-<img width="1578" alt="Clipboard_Screenshot_1744197334" src="https://github.com/user-attachments/assets/8d156b9b-2df6-4819-82cb-d16445d9025c" />
+<img width="1601" alt="Clipboard_Screenshot_1744198137" src="https://github.com/user-attachments/assets/8c9ce5ec-35e1-40ab-8dd6-38be318df4e5" />
 
 
 #### 获取cookie
-<img width="1578" alt="Clipboard_Screenshot_1744197334" src="https://github.com/user-attachments/assets/01c8b633-e0a8-4f33-a401-c19b4020b993" />
+<img width="1571" alt="Clipboard_Screenshot_1744198219" src="https://github.com/user-attachments/assets/e6a509c1-25fc-4000-a1d0-31a7a44f62c7" />
 
 #### 获取a_bogus，ms_token
-<img width="1449" alt="Clipboard_Screenshot_1744197521" src="https://github.com/user-attachments/assets/2c040196-3986-4f6c-82f8-6afa1d3b18ee" />
+<img width="1575" alt="Clipboard_Screenshot_1744198345" src="https://github.com/user-attachments/assets/143da920-e812-4587-8d03-c44afeb8d397" />
 
 
 ### 初始化客户端
@@ -43,8 +43,8 @@ from juejin.client import JuejinClient
 # 初始化客户端(需要从浏览器获取认证信息)
 client = JuejinClient(
     cookie="your_cookie", // 用户cookie
-    a_bogus="your_a_bogus", // 额外的用户校验参数，如使用签到功能时需要指定
-    ms_token="your_ms_token" // 额外的用户校验参数，如使用签到功能时需要指定
+    a_bogus="your_a_bogus", // 额外的用户校验参数，默认为空，如需使用签到功能时，需要设置
+    ms_token="your_ms_token" // 额外的用户校验参数，默认为空，如需使用签到功能时，需要设置
 )
 ```
 
