@@ -45,7 +45,9 @@ import os
 cookies = os.environ["JUEJIN_COOKIE"] 
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
+
 user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+
 ```
 
 
@@ -59,10 +61,12 @@ from juejin.user import UserClient
 cookies = os.environ["JUEJIN_COOKIE"] 
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
+
 user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 # 打印用户信息
 result = user_client.get_info_package()
 print(result)
+
 ```
 
 ### 文章管理
@@ -77,12 +81,14 @@ from juejin.models import ArticleRequest
 cookies = os.environ["JUEJIN_COOKIE"]
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
+
 article_client = ArticleClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 result = article_client.create_draft(ArticleRequest().from_dict(
     {"title": "这是我的第一篇博客"})
 )
 # 创建草稿
 print(f"result")
+
 ```
 
 
