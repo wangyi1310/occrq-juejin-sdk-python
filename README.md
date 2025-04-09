@@ -106,10 +106,7 @@ JuejinClient(cookie: str, a_bogus: str, ms_token: str)
 
 ## 贡献指南
 
-欢迎提交Pull Request或Issue报告问题。提交代码前请确保：
-1. 通过所有单元测试
-2. 更新相关文档
-3. 遵循PEP8代码风格
+欢迎提交Pull Request或Issue报告问题。
 
 ## 许可证
 
