@@ -41,7 +41,7 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 # UserClient初始化
 from juejin.user import UserClient
 import os
-# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
+# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置ms_token/a_bogus，默认为空
 cookies = os.environ["JUEJIN_COOKIE"] 
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
