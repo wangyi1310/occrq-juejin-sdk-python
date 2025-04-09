@@ -53,6 +53,9 @@ client = JuejinClient(
 
 ```python
 # 获取用户信息
+client = JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+article_api = ArticleAPI(client)
+
 user_info = client.user.get_counts()
 print(f"用户信息: {user_info}")
 
