@@ -6,10 +6,12 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from juejin.error import JuejinAPIError
 from juejin.models import BaseRequest
 
 # Configure logging
 logger = logging.getLogger(__name__)
+
 
 class RequestConfig:
     """Request configuration class"""
@@ -17,6 +19,7 @@ class RequestConfig:
     max_retries: int = 3
     retry_backoff_factor: float = 0.5
     retry_status_codes: tuple = (500, 502, 503, 504)
+
 
 class JuejinClient:
     """Juejin API client"""
@@ -40,7 +43,6 @@ class JuejinClient:
         self._ms_token = ms_token
 
     def _set_session(self, cookie: str) -> None:
-        """Configure session parameters"""
         # Set retry strategy
         retry_strategy = Retry(
             total=self._config.max_retries,
@@ -150,20 +152,3 @@ class JuejinClient:
             logger.error(f"Unknown error: {str(e)}", exc_info=True)
             raise JuejinAPIError(f"Unknown error: {str(e)}", -3)
 
-class JuejinAPIError(Exception):
-    """Juejin API exception"""
-
-    def __init__(self, message: str, code: int):
-        """
-        Initialize the exception
-
-        Parameters:
-            message: Error message
-            code: Error code
-        """
-        self.message = message
-        self.code = code
-        super().__init__(f"[{code}] {message}")
-
-    def __str__(self) -> str:
-        return f"[{self.code}] {self.message}"

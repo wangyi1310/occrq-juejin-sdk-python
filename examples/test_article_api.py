@@ -2,19 +2,17 @@ import os
 import unittest
 from unittest.mock import MagicMock
 
-from juejin.article import ArticleAPI, ArticleRequest, UpdateArticleRequest, DescribeArticleListRequest, \
-    DescribeArticleDetailRequest
-from juejin.client import JuejinClient
+from juejin.article import ArticleRequest, UpdateArticleRequest, DescribeArticleListRequest, \
+    DescribeArticleDetailRequest, ArticleClient
 
 
 class TestArticleAPI(unittest.TestCase):
     def setUp(self):
-        cookies = os.environ["JUEJIN_COOKIE"]
-        ms_token = os.environ["JUEJIN_MS_TOKEN"]
-        a_bogus = os.environ["JUEJIN_A_BOGUS"]
+        cookies = os.getenv("JUEJIN_COOKIE")
+        ms_token = os.getenv("JUEJIN_MS_TOKEN")
+        a_bogus = os.getenv("JUEJIN_A_BOGUS")
 
-        self.client = JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
-        self.article_api = ArticleAPI(self.client)
+        self.article_client = ArticleClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
         self.mock_response = MagicMock()
         self.mock_response.json.return_value = {
             "err_no": 0,
@@ -23,45 +21,46 @@ class TestArticleAPI(unittest.TestCase):
         }
 
     def test_create_article(self):
-        result = self.article_api.create_draft(ArticleRequest())
+        result = self.article_client.create_draft(ArticleRequest().from_dict(
+            {"title": "这是我的第一篇博客"})
+        )
         print(result)
 
     def test_update_article(self):
         update = UpdateArticleRequest(id="")
-        result = self.article_api.update_draft(update)
+        result = self.article_client.update_draft(update)
         print(result)
 
     def test_delete_draft(self):
-        result = self.article_api.delete_draft(draft_id="")
+        result = self.article_client.delete_draft(draft_id="")
         print(result)
 
     def test_push_article(self):
-        result = self.article_api.publish(draft_id="")
+        result = self.article_client.publish(draft_id="")
         print(result)
 
     def test_delete_article(self):
-        result = self.article_api.delete(id="")
+        result = self.article_client.delete(id="")
         print(result)
 
     def test_list(self):
-        result = self.article_api.describe_list(DescribeArticleListRequest())
+        result = self.article_client.describe_list(DescribeArticleListRequest())
         print(result)
 
     def test_list_for_draft(self):
-        result = self.article_api.describe_draft_list(DescribeArticleListRequest())
+        result = self.article_client.describe_draft_list(DescribeArticleListRequest())
         print(result)
 
     def test_get_draft_detail(self):
-        result = self.article_api.describe_draft_detail(draft_id="")
+        result = self.article_client.describe_draft_detail(draft_id="")
         print(result)
 
     def test_get_detail(self):
         req = DescribeArticleDetailRequest()
         req.article_id = ""
-        req.client_type=0
-        result = self.article_api.describe_detail(req)
+        req.client_type = 0
+        result = self.article_client.describe_detail(req)
         print(result)
-
 
 
 if __name__ == '__main__':

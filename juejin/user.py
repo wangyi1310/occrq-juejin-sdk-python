@@ -3,11 +3,11 @@ from typing import Dict, Any
 from .client import JuejinClient
 
 
-class UserAPI:
+class UserClient(JuejinClient):
     """User related APIs"""
 
-    def __init__(self, client: JuejinClient):
-        self._client = client
+    def __init__(self, cookie: str, a_bogus: str = None, ms_token: str = None):
+        super().__init__(cookie, a_bogus, ms_token)
 
     def get_counts(self) -> Dict[str, Any]:
         """Get user sign-in information"""
@@ -15,7 +15,7 @@ class UserAPI:
 
     def get_today_status(self) -> Dict[str, Any]:
         """Get today's sign-in status"""
-        return self._client.request("GET", "/growth_api/v2/get_today_status")
+        return self.request("GET", "/growth_api/v2/get_today_status")
 
     def get_info_package(
             self,
@@ -40,7 +40,7 @@ class UserAPI:
                 "user_growth_info": user_growth_info,
             }
         }
-        return self._client.request("POST", "/user_api/v1/user/get_info_pack", data=data)
+        return self.request("POST", "/user_api/v1/user/get_info_pack", data=data)
 
     def get_rank_user_info(self, fro: int = 1, item_rank_type: int = 3, item_sub_rank_type: str = "0") \
             -> Dict[str, Any]:
@@ -55,10 +55,10 @@ class UserAPI:
     def check_in(self) -> Dict[str, Any]:
         """签到"""
         data = {}
-        return self._client.request("POST", "/growth_api/v1/check_in", data=data, extra_auth=True)
+        return self.request("POST", "/growth_api/v1/check_in", data=data, extra_auth=True)
 
     def dynamic(self) -> Dict[str, Any]:
         """获取动态"""
-        return self._client.request("GET", "/user_api/v1/user/dynamic")
+        return self.request("GET", "/user_api/v1/user/dynamic")
 
 

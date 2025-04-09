@@ -5,26 +5,11 @@ from .const import ARTICLE_ID, DRAFT_ID
 from .models import ArticleRequest, UpdateArticleRequest, DescribeArticleDetailRequest, DescribeArticleListRequest
 
 
-class ArticleAPI:
+class ArticleClient(JuejinClient):
     """Article related APIs"""
 
-    def __init__(self, client: JuejinClient):
-        self._client = client
-
-    def _make_request(self, method: str, endpoint: str, data: Dict[str, Any] = None, params: Dict[str, Any] = None) -> Dict[str, Any]:
-        """
-        Helper method to make requests to the API.
-
-        Args:
-            method (str): HTTP method (e.g., "POST", "GET").
-            endpoint (str): API endpoint.
-            data (Dict[str, Any], optional): Request data. Defaults to None.
-            params (Dict[str, Any], optional): Request parameters. Defaults to None.
-
-        Returns:
-            Dict[str, Any]: API response.
-        """
-        return self._client.request(method, endpoint, data=data, params=params)
+    def __init__(self, cookie: str, a_bogus: str = None, ms_token: str = None):
+        super().__init__(cookie, a_bogus, ms_token)
 
     def create_draft(self, req: ArticleRequest) -> Dict[str, Any]:
         """
@@ -36,7 +21,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response.
         """
-        return self._make_request("POST", "/content_api/v1/article_draft/create", data=req)
+        return self.request("POST", "/content_api/v1/article_draft/create", data=req)
 
     def update_draft(self, req: UpdateArticleRequest) -> Dict[str, Any]:
         """
@@ -48,7 +33,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response.
         """
-        return self._make_request("POST", "/content_api/v1/article_draft/update", data=req)
+        return self.request("POST", "/content_api/v1/article_draft/update", data=req)
 
     def describe_draft_detail(self, draft_id: str) -> Dict[str, Any]:
         """
@@ -60,7 +45,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response containing draft details.
         """
-        return self._make_request("POST", "/content_api/v1/article_draft/detail", data={DRAFT_ID: draft_id})
+        return self.request("POST", "/content_api/v1/article_draft/detail", data={DRAFT_ID: draft_id})
 
     def describe_detail(self, req: DescribeArticleDetailRequest) -> Dict[str, Any]:
         """
@@ -72,7 +57,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response containing article details.
         """
-        return self._make_request("POST", "/content_api/v1/article/detail", data=req)
+        return self.request("POST", "/content_api/v1/article/detail", data=req)
 
     def delete_draft(self, draft_id: str) -> Dict[str, Any]:
         """
@@ -84,7 +69,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response indicating the result of the delete operation.
         """
-        return self._make_request("POST", "/content_api/v1/article_draft/delete", data={DRAFT_ID: draft_id})
+        return self.request("POST", "/content_api/v1/article_draft/delete", data={DRAFT_ID: draft_id})
 
     def delete(self, id: str) -> Dict[str, Any]:
         """
@@ -96,7 +81,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response indicating the result of the delete operation.
         """
-        return self._make_request("POST", "/content_api/v1/article/delete", data={ARTICLE_ID: id})
+        return self.request("POST", "/content_api/v1/article/delete", data={ARTICLE_ID: id})
 
     def publish(self, draft_id: str) -> Dict[str, Any]:
         """
@@ -108,7 +93,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response indicating the result of the publish operation.
         """
-        return self._make_request("POST", "/content_api/v1/article/publish", data={DRAFT_ID: draft_id})
+        return self.request("POST", "/content_api/v1/article/publish", data={DRAFT_ID: draft_id})
 
     def describe_list(self, req: DescribeArticleListRequest) -> Dict[str, Any]:
         """
@@ -120,7 +105,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response containing a list of articles.
         """
-        return self._make_request("POST", "/content_api/v1/article/list_by_user", data=req)
+        return self.request("POST", "/content_api/v1/article/list_by_user", data=req)
 
     def describe_draft_list(self, req: DescribeArticleListRequest) -> Dict[str, Any]:
         """
@@ -132,7 +117,7 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: API response containing a list of article drafts.
         """
-        return self._make_request("POST", "/content_api/v1/article_draft/list_by_user", data=req)
+        return self.request("POST", "/content_api/v1/article_draft/list_by_user", data=req)
 
     def describe_article_detail(self, article_id: str) -> Dict[str, Any]:
         """
@@ -144,4 +129,4 @@ class ArticleAPI:
         Returns:
             Dict[str, Any]: Article detail data.
         """
-        return self._make_request("GET", "/content_api/v1/article/detail", params={ARTICLE_ID: article_id})
+        return self.request("GET", "/content_api/v1/article/detail", params={ARTICLE_ID: article_id})

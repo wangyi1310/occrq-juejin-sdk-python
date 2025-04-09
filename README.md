@@ -38,74 +38,53 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 ### 初始化客户端
 
 ```python
-from juejin.client import JuejinClient
-
-# 初始化客户端(需要从浏览器获取认证信息)
-client = JuejinClient(
-    cookie="your_cookie", // 用户cookie
-    a_bogus="your_a_bogus", // 额外的用户校验参数，默认为空，如需使用签到功能时，需要设置
-    ms_token="your_ms_token" // 额外的用户校验参数，默认为空，如需使用签到功能时，需要设置
-)
+# UserClient初始化
+from juejin.user import UserClient
+import os
+# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
+cookies = os.environ["JUEJIN_COOKIE"] 
+ms_token = os.environ["JUEJIN_MS_TOKEN"]
+a_bogus = os.environ["JUEJIN_A_BOGUS"]
+user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 ```
 
 
 ### 用户相关操作
-
+#### 获取用户信息
 ```python
 # 获取用户信息
-client = JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
-article_api = ArticleAPI(client)
-
-user_info = client.user.get_counts()
-print(f"用户信息: {user_info}")
-
-# 检查签到状态
-sign_status = client.user.get_today_status()
-print(f"今日签到状态: {'已签到' if sign_status['data']['check_in_done'] else '未签到'}")
+import os
+from juejin.user import UserClient
+# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
+cookies = os.environ["JUEJIN_COOKIE"] 
+ms_token = os.environ["JUEJIN_MS_TOKEN"]
+a_bogus = os.environ["JUEJIN_A_BOGUS"]
+user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+# 打印用户信息
+result = user_client.get_info_package()
+print(result)
 ```
 
 ### 文章管理
-
+#### 创建一篇草稿
 ```python
-# 获取首页文章列表
-articles = client.article.get_home_articles()
-print(f"获取到{len(articles['data'])}篇文章")
+import os
 
-# 创建新文章
-new_article = client.article.create_article(
-    title="我的技术文章",
-    content="这里是文章内容...",
-    category_id="1",
-    tags=["Python", "后端"]
+from juejin.article import ArticleClient
+from juejin.models import ArticleRequest
+
+# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
+cookies = os.environ["JUEJIN_COOKIE"]
+ms_token = os.environ["JUEJIN_MS_TOKEN"]
+a_bogus = os.environ["JUEJIN_A_BOGUS"]
+article_client = ArticleClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+result = article_client.create_draft(ArticleRequest().from_dict(
+    {"title": "这是我的第一篇博客"})
 )
-print(f"新文章ID: {new_article['data']['article_id']}")
+# 创建草稿
+print(f"result")
 ```
 
-## API参考
-
-### JuejinClient 类
-
-```python
-JuejinClient(cookie: str, a_bogus: str, ms_token: str)
-```
-- `cookie`: 掘金认证cookie
-- `a_bogus`: 掘金API安全参数
-- `ms_token`: 掘金API安全令牌
-
-### 文章API (client.article)
-
-- `get_home_categories()`: 获取首页分类
-- `get_home_articles()`: 获取首页文章
-- `create_article()`: 创建新文章
-- `update_article()`: 更新文章
-- `delete_article()`: 删除文章
-- `get_article_detail()`: 获取文章详情
-
-### 用户API (client.user)
-
-- `get_counts()`: 获取用户统计信息
-- `get_today_status()`: 获取今日签到状态
-- `get_growth_level()`: 获取用户成长等级
 
 ## 贡献指南
 
