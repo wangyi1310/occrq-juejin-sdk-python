@@ -44,7 +44,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/bdist.linux-x86_64/wheel/*.whl
-        asset_name: occrq-juejin-python-sdk-${{ github.ref_name }}.whl
-        asset_content_type: application/zip
+          tag_name: ${{ github.ref_name }}
+          files: |
+            */occrq-juejin-python-sdk-*
