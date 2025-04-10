@@ -27,6 +27,11 @@ jobs:
       run: |
         python setup.py bdist_wheel
 
+    - name: Upload whleel file
+      uses: actions/upload-artifact@v4
+      with:
+        name: occrq-juejin-python-sdk.whl
+        path: dist/occrq_juejin_python_sdk-0.1.0-py3-none-any.whl
 
     - name: Create release
       id: create_release
@@ -38,7 +43,10 @@ jobs:
         release_name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
-
+    
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+    
     - name: Upload release assets
       uses: softprops/action-gh-release@v1
       env:
