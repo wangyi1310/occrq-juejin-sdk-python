@@ -38,7 +38,7 @@ class TestArticleAPI(unittest.TestCase):
         print(result)
 
     def test_push_article(self):
-        result = self.client.publish(draft_id="")
+        result = self.client.publish_article_draft(draft_id="")
         print(result)
 
     def test_delete_article(self):

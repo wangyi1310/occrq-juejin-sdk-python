@@ -228,7 +228,7 @@ class JuejinClient:
         """
         return self.request("POST", "/content_api/v1/article/delete", data={ARTICLE_ID: article_id})
 
-    def publish(self, draft_id: str) -> Dict[str, Any]:
+    def publish_article_draft(self, draft_id: str) -> Dict[str, Any]:
         """
         Publish an article draft.
 

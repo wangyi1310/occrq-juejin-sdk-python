@@ -69,7 +69,7 @@ a_bogus = os.getenv("JUEJIN_A_BOGUS")
 
 client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 # 打印用户信息
-result = client.get_info_package()
+result = client.describe_user_info_package()
 print(result)
 
 ```
@@ -105,71 +105,62 @@ cookie (str): 掘金的认证 cookie，用于身份验证。
 ms_token (str): 可选，用于特定操作的认证 token。
 a_bogus (str): 可选，用于特定操作的认证参数。
 ##### API
-##### `get_info_package()`
+##### `describe_user_info_package()`
 - **描述**：获取用户的信息包，包含用户的基本信息、计数信息等。
 - **返回**：包含用户信息的字典，具体格式取决于掘金 API 的响应。
-##### `get_rank_user_info()`
+##### `describe_user_rank_info()`
 - **描述**：获取用户的排行榜信息。
 - **返回**：包含用户排行榜信息的字典，具体格式取决于掘金 API 的响应。
-##### `check_in()`
+##### `create_user_check_in()`
 - **描述**：执行用户签到操作。
 - **返回**：：包含签到结果的字典，具体格式取决于掘金 API 的响应。
-##### `dynamic()`
+##### `describe_user_dynamic()`
 - **描述**：：获取用户的动态信息。
 - **返回**：包含用户动态信息的字典，具体格式取决于掘金 API 的响应。
-### ArticleClient 类
-#### 描述
-该类用于处理与文章相关的 API 请求，如创建、编辑、删除文章草稿等操作。
-
-#### 初始化参数
-cookie (str): 掘金的认证 cookie，用于身份验证。
-ms_token (str): 可选，用于特定操作的认证 token。
-a_bogus (str): 可选，用于特定操作的认证参数。
-#### API
-#####  `create_draft(article_request)`
+#####  `create_article_draft(article_request)`
 - **描述**：创建一篇新的文章草稿。
 - **参数**：
   - `article_request` (ArticleRequest): 包含文章标题、内容等信息的请求对象。可以使用 ArticleRequest().from_dict({"title": "文章标题"}) 这样的方式构建。
 - **返回**：包含创建结果的字典，具体格式取决于掘金 API 的响应。
-##### `update_draft(ArticleRequest)`
+##### `update_article_draft(ArticleRequest)`
 - **描述**：更新一篇已有的文章草稿。
 - **参数**：
 `req (ArticleRequest):` 包含需要更新的文章信息的请求对象。
 - **返回**：包含更新结果的字典，具体格式取决于掘金 API 的响应。
-##### `delete_draft(draft_id)`
+##### `delete_article_draft(draft_id)`
 - **描述**：删除一篇文章草稿。
 - **参数**：
 draft_id (str): 要删除的文章草稿的 ID。
 - **返回**：包含删除结果的字典，具体格式取决于掘金 API 的响应。
-##### `delete(id)`
+##### `delete_article(id)`
 - **描述**：删除一篇文章。
 - **参数**：
 id (str): 要删除的文章的 ID。
 - **返回**：包含删除结果的字典，具体格式取决于掘金 API 的响应。
   
-#####  `publish(draft_id)`
+#####  `publish_article_draft(draft_id)`
 - **描述**：发布一篇文章草稿。
 - **参数**：
 draft_id (str): 要发布的文章草稿的 ID。
 - **返回**：包含发布结果的字典，具体格式取决于掘金 API 的响应。
-##### `describe_draft_detail(draft_id)`
-- **描述**：获取一篇文章草稿的详细信息。
+##### `describe_article_detail(draft_id)`
+- **描述**：获取一篇文章的详细信息。
 - **参数**：
 draft_id (str): 要获取详情的文章草稿的 ID。
 - **返回**：包含文章草稿详细信息的字典，具体格式取决于掘金 API 的响应。
-##### `describe_detail(req)`
-- **描述**：获取一篇文章草稿的详细信息。
+##### `describe_article_detail(req)`
+- **描述**：获取一篇文章的详细信息。
 - **参数**：
 req (DescribeArticleDetailRequest): 要获取详情的文章草稿的 ID。
 - **返回**：包含文章草稿详细信息的字典，具体格式取决于掘金 API 的响应。
   
-##### `describe_list(req)`
+##### `describe_article_list(req)`
 - **描述**：获取文章列表。
 - **参数**：
 req (DescribeArticleListRequest): 查询参数，例如分页信息、筛选条件等。
 - **返回**：包含文章列表的字典，具体格式取决于掘金 API 的响应。
 
-##### `describe_draft_list(req)`
+##### `describe_article_draft_list(req)`
 - **描述**：获取草稿箱列表。
 - **参数**：
 req (DescribeArticleListRequest): 查询参数，例如分页信息、筛选条件等。
