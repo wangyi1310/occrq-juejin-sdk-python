@@ -54,4 +54,4 @@ jobs:
       with:
           tag_name: ${{ github.ref_name }}
           files: |
-            occrq-juejin-python-sdk.whl
+            */occrq-juejin-python-sdk.whl
