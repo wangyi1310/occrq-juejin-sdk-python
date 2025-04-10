@@ -46,12 +46,14 @@ jobs:
     
     - name: Download all artifacts
       uses: actions/download-artifact@v4
-    
+      with:
+        path: .  # 直接下载到当前工作目录
+
     - name: Upload release assets
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-          tag_name: ${{ github.ref_name }}
-          files: |
-            */occrq-juejin-python-sdk.whl
+        tag_name: ${{ github.ref_name }}
+        files: |
+          occrq-juejin-python-sdk.whl
