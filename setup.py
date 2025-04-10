@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="occrq-juejin-sdk",
+    name="occrq-juejin-python-sdk",
     version="0.1.0",
     description="Python SDK for Juejin API",
     long_description=open("README.md").read(),

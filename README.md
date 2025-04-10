@@ -39,32 +39,34 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 
 ```python
 # UserClient初始化
-from juejin.user import UserClient
+from juejin.client import JuejinClient
 import os
 # 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置ms_token/a_bogus，默认为空
 cookies = os.environ["JUEJIN_COOKIE"] 
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
 
-user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+client = JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 
 ```
 
 
 ### 用户相关操作
 #### 获取用户信息
+
 ```python
 # 获取用户信息
+import juejin
 import os
-from juejin.user import UserClient
+
 # 初始化客户端(预先从浏览器获取登录信息) 使用签到功能时需要设置ms_token/a_bogus，默认为空
-cookies = os.environ["JUEJIN_COOKIE"] 
+cookies = os.environ["JUEJIN_COOKIE"]
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
 
-user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 # 打印用户信息
-result = user_client.get_info_package()
+result = client.get_info_package()
 print(result)
 
 ```
@@ -73,8 +75,8 @@ print(result)
 #### 创建一篇草稿
 ```python
 import os
+import juejin
 
-from juejin.article import ArticleClient
 from juejin.models import ArticleRequest
 
 # 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
@@ -82,8 +84,8 @@ cookies = os.environ["JUEJIN_COOKIE"]
 ms_token = os.environ["JUEJIN_MS_TOKEN"]
 a_bogus = os.environ["JUEJIN_A_BOGUS"]
 
-article_client = ArticleClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
-result = article_client.create_draft(ArticleRequest().from_dict(
+client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+result = client.create_article_draft(ArticleRequest().from_dict(
     {"title": "这是我的第一篇博客"})
 )
 # 创建草稿

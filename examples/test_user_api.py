@@ -2,15 +2,15 @@ import os
 import unittest
 from unittest.mock import MagicMock
 
-from juejin.user import UserClient
+import juejin
 
 
-class TestUserAPI(unittest.TestCase):
+class TestUserClient(unittest.TestCase):
     def setUp(self):
-        cookies = os.environ["JUEJIN_COOKIE"]
-        ms_token = os.environ["JUEJIN_MS_TOKEN"]
-        a_bogus = os.environ["JUEJIN_A_BOGUS"]
-        self.user_client = UserClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+        cookies = os.getenv("JUEJIN_COOKIE")
+        ms_token = os.getenv("JUEJIN_MS_TOKEN")
+        a_bogus = os.getenv("JUEJIN_A_BOGUS")
+        self.client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
         self.mock_response = MagicMock()
         self.mock_response.json.return_value = {
             "err_no": 0,
@@ -19,19 +19,19 @@ class TestUserAPI(unittest.TestCase):
         }
 
     def test_get_user_info(self):
-        result = self.user_client.get_info_package()
+        result = self.client.describe_user_info_package()
         print(result)
 
     def test_get_user_rank(self):
-        result = self.user_client.get_rank_user_info()
+        result = self.client.describe_user_rank_info()
         print(result)
 
     def test_check_in(self):
-        result = self.user_client.check_in()
+        result = self.client.create_user_check_in()
         print(result)
 
     def test_dynamic(self):
-        result = self.user_client.dynamic()
+        result = self.client.describe_user_dynamic()
         print(result)
 
 
