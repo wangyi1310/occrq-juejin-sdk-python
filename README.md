@@ -45,9 +45,9 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 from juejin.client import JuejinClient
 import os
 # 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置ms_token/a_bogus，默认为空
-cookies = os.environ["JUEJIN_COOKIE"] 
-ms_token = os.environ["JUEJIN_MS_TOKEN"]
-a_bogus = os.environ["JUEJIN_A_BOGUS"]
+cookies = os.getenv("JUEJIN_COOKIE")
+ms_token = os.getenv("JUEJIN_MS_TOKEN")
+a_bogus = os.getenv("JUEJIN_A_BOGUS")]
 
 client = JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 
@@ -63,9 +63,9 @@ import juejin
 import os
 
 # 初始化客户端(预先从浏览器获取登录信息) 使用签到功能时需要设置ms_token/a_bogus，默认为空
-cookies = os.environ["JUEJIN_COOKIE"]
-ms_token = os.environ["JUEJIN_MS_TOKEN"]
-a_bogus = os.environ["JUEJIN_A_BOGUS"]
+cookies = os.getenv("JUEJIN_COOKIE")
+ms_token = os.getenv("JUEJIN_MS_TOKEN")
+a_bogus = os.getenv("JUEJIN_A_BOGUS")
 
 client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 # 打印用户信息
