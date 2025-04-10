@@ -96,15 +96,7 @@ print(f"result")
 
 ```
 ## API 文档
-### UserClient 类
-- **描述**：
-该类用于处理与用户相关的 API 请求，如获取用户信息、签到等操作。
 
-##### 初始化参数
-cookie (str): 掘金的认证 cookie，用于身份验证。
-ms_token (str): 可选，用于特定操作的认证 token。
-a_bogus (str): 可选，用于特定操作的认证参数。
-##### API
 ##### `describe_user_info_package()`
 - **描述**：获取用户的信息包，包含用户的基本信息、计数信息等。
 - **返回**：包含用户信息的字典，具体格式取决于掘金 API 的响应。
