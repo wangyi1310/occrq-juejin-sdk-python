@@ -45,4 +45,4 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         files: |
-          dist/occrq_juejin_python_sdk-0.1.0-py3-none-any.whl
+          dist/occrq_juejin_python_sdk-*.whl
