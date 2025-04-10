@@ -17,6 +17,9 @@
 pip install occrq-juejin-python-sdk
 ```
 
+## 依赖版本
+Python >= 3.8
+
 ## 快速开始
 
 ### 浏览器获取cookie，a_bogus，ms_token
