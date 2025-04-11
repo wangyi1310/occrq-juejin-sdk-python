@@ -23,13 +23,21 @@ class RequestConfig:
     retry_status_codes: tuple = (500, 502, 503, 504)
 
 
+class AuthConfig:
+    aid: str
+    uuid: str
+    spider: str = '0'
+    ms_token: str
+    a_bogus: str
+
+
 class JuejinClient:
     """Juejin API client"""
 
-    BASE_URL = "http://api.juejin.cn"
+    BASE_URL = "https://api.juejin.cn"
     DEFAULT_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
 
-    def __init__(self, cookie: str, a_bogus: str = None, ms_token: str = None, config: RequestConfig = RequestConfig()):
+    def __init__(self, cookie: str, auth_config=AuthConfig(), config: RequestConfig = RequestConfig()):
         """
         Initialize the Juejin client
 
@@ -41,8 +49,7 @@ class JuejinClient:
         self._config = config
         self.session = requests.Session()
         self._set_session(cookie)
-        self._a_bogus = a_bogus
-        self._ms_token = ms_token
+        self.auth_config = auth_config
 
     def _set_session(self, cookie: str) -> None:
         # Set retry strategy
@@ -56,9 +63,9 @@ class JuejinClient:
 
         # Set default request headers
         self.session.headers.update({
-            "cookie": cookie,
-            "user-agent": self.DEFAULT_USER_AGENT,
-            "accept": "application/json"
+            "Cookie": cookie,
+            "User-Agent": self.DEFAULT_USER_AGENT,
+            "Accept": "application/json"
         })
 
     def _prepare_request(
@@ -69,25 +76,25 @@ class JuejinClient:
             data: Optional[Union[Dict[str, Any], BaseModule]] = None,
             headers: Optional[Dict[str, str]] = None,
             extra_auth: bool = False
-    ) -> tuple[str, Optional[str], Dict[str, str],  Dict[str, str]]:
+    ) -> tuple[str, Optional[str], Dict[str, str], Dict[str, str]]:
         """Prepare request parameters"""
         url = f"{self.BASE_URL}{endpoint}"
         headers = headers or {}
 
         # Set POST request headers
         if method.upper() == "POST":
-            headers.setdefault("content-type", "application/json")
+            headers.setdefault("Content-Type", "application/json")
 
         # Add additional authentication parameters
         if extra_auth:
             params = params or {}
-            params.update({
-                "aid": "2608",
-                "uuid": "7491181683644925450",
-                "spider": "0",
-                "msToken": self._ms_token,
-                "a_bogus": self._a_bogus,
-            })
+            params.update(
+                aid=self.auth_config.aid,
+                uuid=self.auth_config.uuid,
+                spider=self.auth_config.spider,
+                msToken=self.auth_config.ms_token,
+                a_bogus=self.auth_config.a_bogus
+            )
 
         # Serialize the request body
         request_data = None
@@ -311,7 +318,7 @@ class JuejinClient:
 
     def create_user_sign_in(self) -> Dict[str, Any]:
         """签到"""
-        data = {}
+        data = ''
         return self.request("POST", "/growth_api/v1/check_in", data=data, extra_auth=True)
 
     def describe_user_dynamic(self) -> Dict[str, Any]:
