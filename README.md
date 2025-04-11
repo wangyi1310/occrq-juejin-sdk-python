@@ -41,18 +41,18 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 ### 初始化客户端
 
 ```python
-# UserClient初始化
-import JuejinClient, AuthConfig
+import juejin
 import os
-# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置ms_token/a_bogus，默认为空
-       # 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化
-auth_config = AuthConfig()
+# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置AuthConfig
+
+# 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化和设置
+auth_config = juejin.AuthConfig()
 auth_config.ms_token = '-='
 auth_config.a_bogus = ''
 auth_config.aid = '2608'
 auth_config.uuid = ''
 cookie = ''
-self.client = juejin.JuejinClient(auth_config=auth_config, cookie=cookie)
+client = juejin.JuejinClient(auth_config=auth_config, cookie=cookie)
 
 ```
 
@@ -65,7 +65,7 @@ self.client = juejin.JuejinClient(auth_config=auth_config, cookie=cookie)
 import juejin
 import os
 
-# 初始化客户端(预先从浏览器获取登录信息) 使用签到功能时需要设置ms_token/a_bogus，默认为空
+# 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化和设置
 auth_config = AuthConfig()
 auth_config.ms_token = '-='
 auth_config.a_bogus = ''
@@ -88,7 +88,7 @@ import juejin
 
 from juejin.models import ArticleRequest
 
-# 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
+# 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化和设置
 auth_config = AuthConfig()
 auth_config.ms_token = '-='
 auth_config.a_bogus = ''
