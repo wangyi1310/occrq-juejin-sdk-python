@@ -22,7 +22,7 @@ Python >= 3.8
 
 ## 快速开始
 
-### 浏览器获取cookie，a_bogus，ms_token
+### 浏览器获取cookie，如需使用签到功能还需要获取 a_bogus，ms_token，aid,uuid
 登录后，进入掘金用户签到页面：https://juejin.cn/user/center/signin?from=sign_in_menu_bar
 <img width="1565" alt="Clipboard_Screenshot_1744198424" src="https://github.com/user-attachments/assets/8be2f82f-a83e-47e1-8437-ecc3961d9f0e" />
 
@@ -34,7 +34,7 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 #### 获取cookie
 <img width="1571" alt="Clipboard_Screenshot_1744198219" src="https://github.com/user-attachments/assets/e6a509c1-25fc-4000-a1d0-31a7a44f62c7" />
 
-#### 获取a_bogus，ms_token
+#### 获取a_bogus，ms_token，aid,uuid
 <img width="1575" alt="Clipboard_Screenshot_1744198345" src="https://github.com/user-attachments/assets/143da920-e812-4587-8d03-c44afeb8d397" />
 
 
@@ -45,7 +45,7 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 import JuejinClient, AuthConfig
 import os
 # 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置ms_token/a_bogus，默认为空
-       # 使用签到功能时需要初始化auth_config
+       # 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化
 auth_config = AuthConfig()
 auth_config.ms_token = '-='
 auth_config.a_bogus = ''
