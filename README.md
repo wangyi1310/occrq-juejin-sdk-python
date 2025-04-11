@@ -32,7 +32,7 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 #### 获取cookie
 <img width="1571" alt="Clipboard_Screenshot_1744198219" src="https://github.com/user-attachments/assets/e6a509c1-25fc-4000-a1d0-31a7a44f62c7" />
 
-#### 获取a_bogus，ms_token，aid,uuid
+#### 获取a_bogus，ms_token，aid, uuid
 <img width="1575" alt="Clipboard_Screenshot_1744198345" src="https://github.com/user-attachments/assets/143da920-e812-4587-8d03-c44afeb8d397" />
 
 
@@ -64,7 +64,7 @@ import juejin
 import os
 
 # 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化和设置
-auth_config = AuthConfig()
+auth_config = juejin.AuthConfig()
 auth_config.ms_token = '-='
 auth_config.a_bogus = ''
 auth_config.aid = '2608'
@@ -87,7 +87,7 @@ import juejin
 from juejin.models import ArticleRequest
 
 # 使用签到功能时需要初始化auth_config，如不需要使用，不需要初始化和设置
-auth_config = AuthConfig()
+auth_config = juejin.AuthConfig()
 auth_config.ms_token = '-='
 auth_config.a_bogus = ''
 auth_config.aid = '2608'
