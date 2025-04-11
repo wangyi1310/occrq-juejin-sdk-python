@@ -23,7 +23,7 @@ Python >= 3.8
 ## 快速开始
 
 ### 浏览器获取cookie，a_bogus，ms_token
-登录后，进入掘金用户签到页面：
+登录后，进入掘金用户签到页面：https://juejin.cn/user/center/signin?from=sign_in_menu_bar
 <img width="1565" alt="Clipboard_Screenshot_1744198424" src="https://github.com/user-attachments/assets/8be2f82f-a83e-47e1-8437-ecc3961d9f0e" />
 
 
