@@ -101,7 +101,7 @@ result = client.create_article_draft(ArticleRequest().from_dict(
 print(f"result")
 
 ```
-## API 文档
+## SDK 文档
 
 ##### `describe_user_info_package()`
 - **描述**：获取用户的信息包，包含用户的基本信息、计数信息等。
