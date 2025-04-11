@@ -26,8 +26,8 @@ class RequestConfig:
 class JuejinClient:
     """Juejin API client"""
 
-    BASE_URL = "https://api.juejin.cn"
-    DEFAULT_USER_AGENT = "juejin-python-sdk/1.0.0"
+    BASE_URL = "http://api.juejin.cn"
+    DEFAULT_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
 
     def __init__(self, cookie: str, a_bogus: str = None, ms_token: str = None, config: RequestConfig = RequestConfig()):
         """
@@ -69,7 +69,7 @@ class JuejinClient:
             data: Optional[Union[Dict[str, Any], BaseModule]] = None,
             headers: Optional[Dict[str, str]] = None,
             extra_auth: bool = False
-    ) -> tuple[str, Optional[str], Dict[str, str]]:
+    ) -> tuple[str, Optional[str], Dict[str, str],  Dict[str, str]]:
         """Prepare request parameters"""
         url = f"{self.BASE_URL}{endpoint}"
         headers = headers or {}
@@ -82,20 +82,22 @@ class JuejinClient:
         if extra_auth:
             params = params or {}
             params.update({
-                "a_bogus": self._a_bogus,
+                "aid": "2608",
+                "uuid": "7491181683644925450",
                 "spider": "0",
-                "msToken": self._ms_token
+                "msToken": self._ms_token,
+                "a_bogus": self._a_bogus,
             })
 
         # Serialize the request body
         request_data = None
-        if data:
+        if data is not None:
             if isinstance(data, BaseModule):
                 request_data = data._serialize()
             elif isinstance(data, dict):
                 request_data = json.dumps(data, ensure_ascii=False)
 
-        return url, request_data, headers
+        return url, request_data, headers, params
 
     def _parse_response(self, response: requests.Response) -> Dict[str, Any]:
         """Parse the response data"""
@@ -125,7 +127,7 @@ class JuejinClient:
     ) -> Dict[str, Any]:
         try:
             # Prepare request parameters
-            url, request_data, headers = self._prepare_request(
+            url, request_data, headers, params = self._prepare_request(
                 method, endpoint, params, data, headers, extra_auth
             )
 
@@ -307,7 +309,7 @@ class JuejinClient:
         }
         return self.request("POST", "/user_api/v1/quality_user/rank", data=data)
 
-    def create_user_check_in(self) -> Dict[str, Any]:
+    def create_user_sign_in(self) -> Dict[str, Any]:
         """签到"""
         data = {}
         return self.request("POST", "/growth_api/v1/check_in", data=data, extra_auth=True)
