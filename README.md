@@ -42,14 +42,17 @@ F12打开浏览器开发者工具，选择Network，刷新页面，搜索check_i
 
 ```python
 # UserClient初始化
-from juejin.client import JuejinClient
+import JuejinClient, AuthConfig
 import os
 # 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需必须设置ms_token/a_bogus，默认为空
-cookies = os.getenv("JUEJIN_COOKIE")
-ms_token = os.getenv("JUEJIN_MS_TOKEN")
-a_bogus = os.getenv("JUEJIN_A_BOGUS")]
-
-client = JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+       # 使用签到功能时需要初始化auth_config
+auth_config = AuthConfig()
+auth_config.ms_token = '-='
+auth_config.a_bogus = ''
+auth_config.aid = '2608'
+auth_config.uuid = ''
+cookie = ''
+self.client = juejin.JuejinClient(auth_config=auth_config, cookie=cookie)
 
 ```
 
@@ -63,11 +66,14 @@ import juejin
 import os
 
 # 初始化客户端(预先从浏览器获取登录信息) 使用签到功能时需要设置ms_token/a_bogus，默认为空
-cookies = os.getenv("JUEJIN_COOKIE")
-ms_token = os.getenv("JUEJIN_MS_TOKEN")
-a_bogus = os.getenv("JUEJIN_A_BOGUS")
+auth_config = AuthConfig()
+auth_config.ms_token = '-='
+auth_config.a_bogus = ''
+auth_config.aid = '2608'
+auth_config.uuid = ''
+cookie = ''
+client = juejin.JuejinClient(auth_config=auth_config, cookie=cookie)
 
-client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
 # 打印用户信息
 result = client.describe_user_info_package()
 print(result)
@@ -83,11 +89,13 @@ import juejin
 from juejin.models import ArticleRequest
 
 # 初始化客户端(需要从浏览器获取认证信息) 需要使用签到功能时需要设置ms_token/a_bogus，默认为空
-cookies = os.environ["JUEJIN_COOKIE"]
-ms_token = os.environ["JUEJIN_MS_TOKEN"]
-a_bogus = os.environ["JUEJIN_A_BOGUS"]
-
-client = juejin.JuejinClient(cookie=cookies, ms_token=ms_token, a_bogus=a_bogus)
+auth_config = AuthConfig()
+auth_config.ms_token = '-='
+auth_config.a_bogus = ''
+auth_config.aid = '2608'
+auth_config.uuid = ''
+cookie = ''
+client = juejin.JuejinClient(auth_config=auth_config, cookie=cookie)
 result = client.create_article_draft(ArticleRequest().from_dict(
     {"title": "这是我的第一篇博客"})
 )
